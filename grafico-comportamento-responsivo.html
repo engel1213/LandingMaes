@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Evolução do Comportamento</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gráfico Responsivo</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
@@ -15,20 +15,23 @@
       font-family: 'Open Sans', sans-serif;
       margin: 0;
       padding: 24px 16px;
-      background: #fff;
       color: #222;
+      background-color: #fff;
       text-align: center;
     }
 
     h1 {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    p.subtitulo {
+    .subtitulo {
       font-size: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
@@ -36,7 +39,7 @@
 
     .grafico-container {
       width: 100%;
-      max-width: 700px;
+      max-width: 600px;
       margin: 0 auto;
     }
 
@@ -44,30 +47,22 @@
       width: 100% !important;
       height: auto !important;
     }
-
-    @media (max-width: 767px) {
-      h1 {
-        font-size: 20px;
-      }
-      p.subtitulo {
-        font-size: 15px;
-      }
-    }
   </style>
 </head>
 <body>
   <h1>Com base nas suas respostas, este é o passo certo para transformar o comportamento do seu filho</h1>
   <p class="subtitulo">
-    Aplique o guia <strong style="color:#BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.
+    Aplique o guia <strong style="color: #BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias —
+    mais calma, obediência e leveza na sua rotina.
   </p>
+
   <div class="grafico-container">
     <canvas id="graficoComportamento"></canvas>
   </div>
 
   <script>
     const ctx = document.getElementById('graficoComportamento').getContext('2d');
-
-    new Chart(ctx, {
+    const chart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
@@ -81,16 +76,20 @@
           pointRadius: 6,
           pointHoverRadius: 8,
           pointBackgroundColor: '#BB443D',
-          pointBorderColor: '#fff'
+          pointBorderColor: '#fff',
+          pointStyle: 'circle'
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
+          legend: {
+            display: false
+          },
           tooltip: {
             callbacks: {
-              label: function (context) {
+              label: function(context) {
                 const labels = [
                   'VOCÊ AGORA',
                   'ME OBEDECE',
@@ -102,44 +101,41 @@
               }
             }
           },
-          legend: {
-            display: false
-          },
           datalabels: {
             anchor: 'end',
             align: 'top',
-            offset: 10,
+            offset: 8,
             font: {
               weight: 'bold',
-              size: 11
+              size: 10
             },
             color: '#BB443D',
-            formatter: function (value, context) {
+            formatter: function(value, context) {
               const labels = [
-                'VOCÊ\nAGORA',
-                'ME\nOBEDECE',
-                'PAROU DE\nSER AGRESSIVO',
-                'SEM\nBIRRA',
+                'VOCÊ AGORA',
+                'ME OBEDECE',
+                'PAROU DE SER AGRESSIVO',
+                'SEM BIRRA',
                 'FILHO GENTIL\nE EDUCADO'
               ];
               return labels[context.dataIndex];
             }
           }
         },
-        layout: {
-          padding: {
-            top: 40,
-            bottom: 30
-          }
-        },
         scales: {
           y: {
             beginAtZero: true,
-            ticks: { display: false },
-            grid: { display: false }
+            ticks: {
+              display: false
+            },
+            grid: {
+              display: false
+            }
           },
           x: {
-            grid: { display: false }
+            grid: {
+              display: false
+            }
           }
         }
       },

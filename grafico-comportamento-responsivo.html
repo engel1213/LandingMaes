@@ -33,8 +33,8 @@
       position: relative;
       width: 100%;
       max-width: 680px;
+      height: 320px; /* Altura definida */
       margin: 0 auto;
-      height: 300px; /* <<< altura controlada */
     }
 
     canvas {
@@ -79,12 +79,12 @@
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false, // importante pra respeitar altura definida no CSS
+        maintainAspectRatio: false,
         layout: {
           padding: {
-            top: 40,
+            top: 60,    // Espaço para datalabel do último ponto
             left: 30,
-            right: 50,
+            right: 30,
             bottom: 0
           }
         },

@@ -36,11 +36,18 @@
       margin: 0 auto 24px;
     }
 
+    .grafico-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 75%;
+    }
+
     canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100% !important;
-      aspect-ratio: 4 / 3;
-      max-height: 360px;
-      display: block;
+      height: 100% !important;
     }
 
     .descricao-mobile {
@@ -81,7 +88,9 @@
   </p>
 
   <div class="grafico-container">
-    <canvas id="graficoComportamento"></canvas>
+    <div class="grafico-wrapper">
+      <canvas id="graficoComportamento"></canvas>
+    </div>
     <div id="descricaoMobile" class="descricao-mobile">
       📍 <strong>VOCÊ AGORA:</strong> Caos, gritos e desobediência.
     </div>
@@ -120,7 +129,7 @@
         responsive: true,
         maintainAspectRatio: false,
         layout: {
-          padding: { left: 20, right: 20, top: 40, bottom: 40 }
+          padding: { left: 40, right: 40, top: 40, bottom: 40 }
         },
         plugins: {
           legend: { display: false },

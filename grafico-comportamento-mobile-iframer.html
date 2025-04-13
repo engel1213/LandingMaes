@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Evolução do Comportamento</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #fff;
+      margin: 16px;
+      color: #222;
+      text-align: center;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+    }
+    p.subtitulo {
+      font-size: 16px;
+      font-weight: 400;
+      margin-bottom: 24px;
+      padding: 0 8px;
+    }
+    .grafico-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      aspect-ratio: 4 / 3;
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>
+</head>
+<body>
+  <h1>Com base nas suas respostas, este é o passo certo para transformar o comportamento do seu filho</h1>
+  <p class="subtitulo">Aplique o guia <strong style="color: #BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.</p>
+
+  <div class="grafico-container">
+    <canvas id="graficoComportamento"></canvas>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('graficoComportamento').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
+        datasets: [{
+          label: 'Evolução do comportamento',
+          data: [10, 30, 60, 80, 100],
+          borderColor: '#BB443D',
+          backgroundColor: 'rgba(187, 68, 61, 0.1)',
+          fill: true,
+          tension: 0.4,
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          pointBackgroundColor: '#BB443D',
+          pointBorderColor: '#fff',
+          pointStyle: 'circle'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const labels = [
+                  'VOCÊ AGORA',
+                  'ME OBEDECE',
+                  'PAROU DE SER AGRESSIVO',
+                  'SEM BIRRA',
+                  'FILHO GENTIL E EDUCADO'
+                ];
+                return labels[context.dataIndex];
+              }
+            }
+          },
+          legend: {
+            display: false
+          },
+          datalabels: {
+            anchor: 'end',
+            align: 'top',
+            offset: 8,
+            font: {
+              weight: 'bold',
+              size: 10
+            },
+            color: '#BB443D',
+            formatter: function(value, context) {
+              const labels = [
+                'VOCÊ AGORA',
+                'ME OBEDECE',
+                'PAROU DE SER AGRESSIVO',
+                'SEM BIRRA',
+                'FILHO GENTIL E EDUCADO'
+              ];
+              return labels[context.dataIndex];
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              display: false
+            },
+            grid: {
+              display: false
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
+          }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
+</body>
+</html>

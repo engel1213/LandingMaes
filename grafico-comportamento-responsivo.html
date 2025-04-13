@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Gráfico de Evolução</title>
+  <title>Evolução do Comportamento</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -55,7 +55,7 @@
   <script>
     const ctx = document.getElementById('graficoComportamento').getContext('2d');
 
-    const chart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['0 DIAS', '7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
@@ -78,9 +78,9 @@
         maintainAspectRatio: true,
         layout: {
           padding: {
-            left: 40,   // aumentamos o espaço do primeiro ponto
-            right: 40,  // aumentamos o espaço do último ponto
-            top: 10,
+            top: 40,    // espaço extra pra datalabel do último ponto
+            left: 30,
+            right: 50,  // espaço extra pro último ponto
             bottom: 10
           }
         },
@@ -88,7 +88,7 @@
           tooltip: {
             callbacks: {
               label: function(context) {
-                const tooltips = [
+                const textos = [
                   'Situação atual: birra, desobediência, estresse.',
                   'Obedece sem gritos.',
                   'Diminui agressividade, mais calma.',
@@ -96,7 +96,7 @@
                   'Sem birras. Comunicação mais leve.',
                   'Filho gentil, educado e cooperativo.'
                 ];
-                return tooltips[context.dataIndex];
+                return textos[context.dataIndex];
               }
             }
           },
@@ -104,20 +104,20 @@
           datalabels: {
             anchor: 'end',
             align: 'top',
-            offset: 8,
+            offset: 4,
             clip: false,
             font: { weight: 'bold', size: 10 },
             color: '#BB443D',
             formatter: function(value, context) {
-              const labels = [
-                'VOCÊ AGORA',
+              const rótulos = [
+                'VOCÊ\nAGORA',
                 'ME\nOBEDECE',
                 'PAROU DE\nSER AGRESSIVO',
                 'MAIS\nAFETO',
                 'SEM\nBIRRA',
                 'FILHO GENTIL\nE EDUCADO'
               ];
-              return labels[context.dataIndex];
+              return rótulos[context.dataIndex];
             }
           }
         },

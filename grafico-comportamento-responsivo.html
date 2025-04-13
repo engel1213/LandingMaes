@@ -2,67 +2,58 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Gráfico Responsivo</title>
+  <title>Evolução do Comportamento</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
     body {
       font-family: 'Open Sans', sans-serif;
+      background: #fff;
       margin: 0;
       padding: 24px 16px;
       color: #222;
-      background: #fff;
       text-align: center;
     }
 
     h1 {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
-      margin-bottom: 12px;
+      margin: 0 0 12px 0;
     }
 
     p.subtitulo {
       font-size: 16px;
       font-weight: 400;
       margin-bottom: 24px;
-      padding: 0 8px;
-      line-height: 1.5;
     }
 
     .grafico-container {
-      position: relative;
       width: 100%;
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto;
+      padding: 16px 0;
     }
 
     canvas {
       width: 100% !important;
       height: auto !important;
     }
-
-    @media (max-width: 767px) {
-      canvas {
-        max-height: 320px;
-      }
-    }
   </style>
 </head>
 <body>
   <h1>Com base nas suas respostas, este é o passo certo para transformar o comportamento do seu filho</h1>
   <p class="subtitulo">
-    Aplique o guia <strong style="color: #BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias —
-    mais calma, obediência e leveza na sua rotina.
+    Aplique o guia <strong style="color: #BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.
   </p>
 
   <div class="grafico-container">
-    <canvas id="graficoComportamento"></canvas>
+    <canvas id="graficoComportamento" width="600" height="400"></canvas>
   </div>
 
   <script>
     const ctx = document.getElementById('graficoComportamento').getContext('2d');
-    new Chart(ctx, {
+    const chart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
@@ -83,11 +74,18 @@
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        layout: {
+          padding: {
+            top: 40,
+            left: 30,
+            right: 30,
+            bottom: 30
+          }
+        },
         plugins: {
-          legend: { display: false },
           tooltip: {
             callbacks: {
-              label: function (context) {
+              label: function(context) {
                 const labels = [
                   'VOCÊ AGORA',
                   'ME OBEDECE',
@@ -99,22 +97,25 @@
               }
             }
           },
+          legend: {
+            display: false
+          },
           datalabels: {
             anchor: 'end',
             align: 'top',
-            offset: 6,
+            offset: 8,
             font: {
               weight: 'bold',
               size: 10
             },
             color: '#BB443D',
-            formatter: function (value, context) {
+            formatter: function(value, context) {
               const labels = [
                 'VOCÊ AGORA',
                 'ME OBEDECE',
                 'PAROU DE SER AGRESSIVO',
                 'BIRRA',
-                'FILHO GENTIL\nE EDUCADO' // quebra de linha
+                'FILHO GENTIL\nE EDUCADO'
               ];
               return labels[context.dataIndex];
             }
@@ -127,7 +128,6 @@
             grid: { display: false }
           },
           x: {
-            ticks: { color: '#555' },
             grid: { display: false }
           }
         }

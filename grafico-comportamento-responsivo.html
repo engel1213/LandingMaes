@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Evolução do Comportamento</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Gráfico de Evolução</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
     body {
       font-family: "Open Sans", sans-serif;
-      margin: 16px;
-      background: #ffffff;
-      color: #222222;
+      background: #fff;
+      padding: 16px;
+      margin: 0;
+      color: #222;
       text-align: center;
     }
 
     h1 {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       padding: 0 12px;
     }
 
-    .subtitulo {
+    p.subtitulo {
       font-size: 16px;
       font-weight: 400;
       padding: 0 16px;
@@ -30,8 +31,6 @@
     }
 
     .grafico-container {
-      position: relative;
-      width: 100%;
       max-width: 640px;
       margin: 0 auto;
     }
@@ -53,37 +52,39 @@
   </div>
 
   <script>
-    const ctx = document.getElementById("graficoComportamento").getContext("2d");
+    const ctx = document.getElementById('graficoComportamento').getContext('2d');
 
     new Chart(ctx, {
-      type: "line",
+      type: 'line',
       data: {
-        labels: ["0 DIAS", "7 DIAS", "14 DIAS", "21 DIAS", "24 DIAS", "28 DIAS"],
+        labels: ['0 DIAS', '7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
         datasets: [{
-          label: "Evolução emocional",
+          label: 'Evolução emocional',
           data: [5, 20, 40, 60, 75, 90],
-          borderColor: "#BB443D",
-          backgroundColor: "rgba(187, 68, 61, 0.1)",
+          borderColor: '#BB443D',
+          backgroundColor: 'rgba(187, 68, 61, 0.1)',
           fill: true,
           tension: 0.4,
-          pointRadius: 6,
-          pointHoverRadius: 8,
-          pointBackgroundColor: "#BB443D",
-          pointBorderColor: "#fff",
-          pointStyle: "circle"
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          pointBackgroundColor: '#BB443D',
+          pointBorderColor: '#fff',
+          pointStyle: 'circle'
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: true,
         animation: {
-          duration: 1200,
-          easing: "easeOutQuart"
+          duration: 1000,
+          easing: 'easeOutCubic'
         },
         layout: {
           padding: {
-            left: 24,
-            right: 24
+            left: 36,
+            right: 60,
+            top: 48,
+            bottom: 16
           }
         },
         plugins: {
@@ -91,35 +92,35 @@
           datalabels: {
             anchor: 'end',
             align: 'top',
+            offset: 4,
+            clip: false,
             font: {
-              size: 10,
-              weight: 'bold'
+              weight: 'bold',
+              size: 10
             },
             color: '#BB443D',
             formatter: function(value, context) {
-              const etapas = [
-                "VOCÊ AGORA",
-                "ME OBEDECE",
-                "PAROU DE\nSER AGRESSIVO",
-                "MAIS\nAFETO",
-                "SEM\nBIRRA",
-                "FILHO GENTIL\nE EDUCADO"
+              const labels = [
+                'VOCÊ\nAGORA',
+                'ME\nOBEDECE',
+                'PAROU DE\nSER AGRESSIVO',
+                'MAIS\nAFETO',
+                'SEM\nBIRRA',
+                'FILHO GENTIL\nE EDUCADO'
               ];
-              return etapas[context.dataIndex];
+              return labels[context.dataIndex];
             }
           },
           tooltip: {
-            backgroundColor: "#333",
-            titleFont: { weight: "bold" },
             callbacks: {
               label: function(context) {
                 const explicacoes = [
-                  "Caos, gritos e desobediência.",
-                  "Começou a obedecer sem gritar.",
-                  "Parou de bater, xingar ou provocar.",
-                  "Mostra mais carinho e empatia.",
-                  "Sem crises ou birras diárias.",
-                  "Filho gentil, educado e cooperativo."
+                  'Caos, gritos e desobediência.',
+                  'Começou a obedecer sem gritar.',
+                  'Parou de bater, xingar ou provocar.',
+                  'Mostra mais carinho e empatia.',
+                  'Sem crises ou birras diárias.',
+                  'Filho gentil, educado e cooperativo.'
                 ];
                 return explicacoes[context.dataIndex];
               }
@@ -129,13 +130,14 @@
         scales: {
           y: {
             beginAtZero: true,
-            grid: { display: false },
-            ticks: { display: false }
+            max: 100,
+            ticks: { display: false },
+            grid: { display: false }
           },
           x: {
             grid: { display: false },
             ticks: {
-              font: { weight: "bold" }
+              font: { weight: 'bold' }
             }
           }
         }

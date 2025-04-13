@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Evolução do Comportamento</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
   <style>
     body {
       font-family: 'Open Sans', sans-serif;
       background: #fff;
-      margin: 0;
-      padding: 24px 16px;
       color: #222;
+      margin: 0;
+      padding: 20px;
       text-align: center;
     }
 
     h1 {
       font-size: 22px;
       font-weight: 700;
-      margin: 0 0 12px 0;
+      margin-bottom: 8px;
     }
 
     p.subtitulo {
       font-size: 16px;
       font-weight: 400;
-      margin-bottom: 24px;
+      max-width: 600px;
+      margin: 0 auto 24px auto;
+      padding: 0 12px;
     }
 
     .grafico-container {
       width: 100%;
-      max-width: 650px;
+      max-width: 600px;
       margin: 0 auto;
-      padding: 16px 0;
+      padding: 0 12px;
     }
 
     canvas {
@@ -48,12 +52,21 @@
   </p>
 
   <div class="grafico-container">
-    <canvas id="graficoComportamento" width="600" height="400"></canvas>
+    <canvas id="graficoComportamento"></canvas>
   </div>
 
   <script>
     const ctx = document.getElementById('graficoComportamento').getContext('2d');
-    const chart = new Chart(ctx, {
+
+    const labelsPersonalizadas = [
+      'VOCÊ\nAGORA',
+      'ME\nOBEDECE',
+      'PAROU DE\nSER AGRESSIVO',
+      'BIRRA',
+      'FILHO GENTIL\nE EDUCADO'
+    ];
+
+    new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
@@ -76,24 +89,17 @@
         maintainAspectRatio: false,
         layout: {
           padding: {
-            top: 40,
-            left: 30,
-            right: 30,
-            bottom: 30
+            left: 10,
+            right: 10,
+            top: 10,
+            bottom: 10
           }
         },
         plugins: {
           tooltip: {
             callbacks: {
               label: function(context) {
-                const labels = [
-                  'VOCÊ AGORA',
-                  'ME OBEDECE',
-                  'PAROU DE SER AGRESSIVO',
-                  'BIRRA',
-                  'FILHO GENTIL E EDUCADO'
-                ];
-                return labels[context.dataIndex];
+                return labelsPersonalizadas[context.dataIndex];
               }
             }
           },
@@ -103,32 +109,31 @@
           datalabels: {
             anchor: 'end',
             align: 'top',
-            offset: 8,
+            offset: 6,
             font: {
               weight: 'bold',
               size: 10
             },
             color: '#BB443D',
             formatter: function(value, context) {
-              const labels = [
-                'VOCÊ AGORA',
-                'ME OBEDECE',
-                'PAROU DE SER AGRESSIVO',
-                'BIRRA',
-                'FILHO GENTIL\nE EDUCADO'
-              ];
-              return labels[context.dataIndex];
+              return labelsPersonalizadas[context.dataIndex];
             }
           }
         },
         scales: {
           y: {
             beginAtZero: true,
-            ticks: { display: false },
-            grid: { display: false }
+            ticks: {
+              display: false
+            },
+            grid: {
+              display: false
+            }
           },
           x: {
-            grid: { display: false }
+            grid: {
+              display: false
+            }
           }
         }
       },

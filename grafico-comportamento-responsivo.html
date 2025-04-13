@@ -2,170 +2,133 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Gráfico de Comportamento</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evolução do Comportamento</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: 'Open Sans', sans-serif;
-      margin: 0;
-      padding: 24px 16px;
       background: #fff;
-      color: #111;
+      margin: 0;
+      padding: 20px 16px;
       text-align: center;
+      color: #222;
     }
 
     h1 {
       font-size: 22px;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
-    .subtitulo {
+    p.subtitulo {
       font-size: 16px;
-      line-height: 1.5;
+      font-weight: 400;
       margin-bottom: 24px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      padding: 0 12px;
     }
 
     .grafico-container {
-      max-width: 640px;
-      margin: 0 auto 24px;
-    }
-
-    .grafico-wrapper {
       position: relative;
       width: 100%;
-      padding-bottom: 75%;
+      max-width: 680px;
+      margin: 0 auto;
     }
 
     canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100% !important;
-      height: 100% !important;
-    }
-
-    .descricao-mobile {
-      font-size: 15px;
-      background: #f9f9f9;
-      border-radius: 12px;
-      padding: 16px 20px;
-      max-width: 640px;
-      margin: 20px auto 0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      line-height: 1.6;
-      text-align: left;
-    }
-
-    .descricao-mobile strong {
-      font-weight: 700;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 20px;
-      }
-
-      .subtitulo {
-        font-size: 15px;
-      }
-
-      .descricao-mobile {
-        font-size: 14px;
-      }
+      height: auto !important;
     }
   </style>
 </head>
 <body>
   <h1>Com base nas suas respostas, este é o passo certo para transformar o comportamento do seu filho</h1>
   <p class="subtitulo">
-    Aplique o guia <strong style="color: #BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.
+    Aplique o guia <strong style="color:#BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.
   </p>
 
   <div class="grafico-container">
-    <div class="grafico-wrapper">
-      <canvas id="graficoComportamento"></canvas>
-    </div>
-    <div id="descricaoMobile" class="descricao-mobile">
-      📍 <strong>VOCÊ AGORA:</strong> Caos, gritos e desobediência.
-    </div>
+    <canvas id="graficoComportamento"></canvas>
   </div>
 
   <script>
-    const ctx = document.getElementById("graficoComportamento").getContext("2d");
+    const ctx = document.getElementById('graficoComportamento').getContext('2d');
 
-    const estados = [
-      { label: "VOCÊ AGORA", desc: "Caos, gritos e desobediência." },
-      { label: "ME OBEDECE", desc: "Primeiras respostas positivas, criança mais receptiva." },
-      { label: "PAROU DE\nSER AGRESSIVO", desc: "Redução de comportamentos agressivos, mais diálogo." },
-      { label: "MAIS\nAFETO", desc: "Abraços, carinho e conexão emocional mais forte." },
-      { label: "SEM\nBIRRA", desc: "Fim dos acessos de birra e reações impulsivas." },
-      { label: "FILHO GENTIL\nE EDUCADO", desc: "Filho gentil, educado e cooperativo." }
-    ];
-
-    const chart = new Chart(ctx, {
-      type: "line",
+    new Chart(ctx, {
+      type: 'line',
       data: {
-        labels: ["0 DIAS", "7 DIAS", "14 DIAS", "21 DIAS", "24 DIAS", "28 DIAS"],
+        labels: ['0 DIAS', '7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
         datasets: [{
-          data: [5, 20, 40, 60, 75, 90],
-          backgroundColor: "rgba(187, 68, 61, 0.1)",
-          borderColor: "#BB443D",
+          label: 'Evolução do comportamento',
+          data: [5, 15, 35, 55, 70, 85],
+          borderColor: '#BB443D',
+          backgroundColor: 'rgba(187, 68, 61, 0.1)',
           fill: true,
           tension: 0.4,
           pointRadius: 6,
           pointHoverRadius: 8,
-          pointBackgroundColor: "#BB443D",
-          pointBorderColor: "#fff",
+          pointBackgroundColor: '#BB443D',
+          pointBorderColor: '#fff',
           pointStyle: 'circle'
         }]
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: true,
         layout: {
-          padding: { left: 40, right: 40, top: 40, bottom: 40 }
+          padding: {
+            top: 40,    // espaço extra pra datalabel do último ponto
+            left: 30,
+            right: 50,  // espaço extra pro último ponto
+            bottom: 10
+          }
         },
         plugins: {
-          legend: { display: false },
           tooltip: {
-            enabled: false,
-            external: function(context) {
-              const idx = context.tooltip.dataPoints?.[0]?.dataIndex ?? 0;
-              const descBox = document.getElementById("descricaoMobile");
-              if (descBox && estados[idx]) {
-                descBox.innerHTML = `📍 <strong>${estados[idx].label}:</strong> ${estados[idx].desc}`;
+            callbacks: {
+              label: function(context) {
+                const textos = [
+                  'Situação atual: birra, desobediência, estresse.',
+                  'Obedece sem gritos.',
+                  'Diminui agressividade, mais calma.',
+                  'Mais empatia e afeto.',
+                  'Sem birras. Comunicação mais leve.',
+                  'Filho gentil, educado e cooperativo.'
+                ];
+                return textos[context.dataIndex];
               }
             }
           },
+          legend: { display: false },
           datalabels: {
-            color: "#BB443D",
-            anchor: "end",
-            align: "top",
-            offset: 6,
-            font: {
-              weight: 'bold',
-              size: 10
-            },
-            formatter: (_, ctx) => estados[ctx.dataIndex].label
+            anchor: 'end',
+            align: 'top',
+            offset: 4,
+            clip: false,
+            font: { weight: 'bold', size: 10 },
+            color: '#BB443D',
+            formatter: function(value, context) {
+              const rótulos = [
+                'VOCÊ\nAGORA',
+                'ME\nOBEDECE',
+                'PAROU DE\nSER AGRESSIVO',
+                'MAIS\nAFETO',
+                'SEM\nBIRRA',
+                'FILHO GENTIL\nE EDUCADO'
+              ];
+              return rótulos[context.dataIndex];
+            }
           }
         },
         scales: {
           y: {
-            display: false,
-            min: 0,
-            max: 100
+            beginAtZero: true,
+            max: 100,
+            ticks: { display: false },
+            grid: { display: false }
           },
           x: {
-            ticks: {
-              color: "#444",
-              font: { size: 12 }
-            },
             grid: { display: false }
           }
         }

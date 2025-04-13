@@ -34,11 +34,15 @@
       width: 100%;
       max-width: 680px;
       margin: 0 auto;
+      height: 300px; /* <<< altura controlada */
     }
 
     canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100% !important;
-      height: auto !important;
+      height: 100% !important;
     }
   </style>
 </head>
@@ -75,13 +79,13 @@
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false, // importante pra respeitar altura definida no CSS
         layout: {
           padding: {
-            top: 40,    // espaço extra pra datalabel do último ponto
+            top: 40,
             left: 30,
-            right: 50,  // espaço extra pro último ponto
-            bottom: 10
+            right: 50,
+            bottom: 0
           }
         },
         plugins: {

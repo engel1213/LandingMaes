@@ -1,46 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gráfico Responsivo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráfico de Comportamento</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Open Sans', sans-serif;
+      background: #fff;
       margin: 0;
-      padding: 24px 16px;
+      padding: 20px;
       color: #222;
-      background-color: #fff;
       text-align: center;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
     }
 
     h1 {
       font-size: 22px;
       font-weight: 700;
-      margin-bottom: 8px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-bottom: 12px;
     }
 
-    .subtitulo {
+    p.subtitulo {
       font-size: 16px;
+      font-weight: 400;
       margin-bottom: 32px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      line-height: 1.5;
     }
 
     .grafico-container {
+      position: relative;
       width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
     }
 
     canvas {
@@ -50,19 +46,18 @@
   </style>
 </head>
 <body>
-  <h1>Com base nas suas respostas, este é o passo certo para transformar o comportamento do seu filho</h1>
-  <p class="subtitulo">
-    Aplique o guia <strong style="color: #BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias —
-    mais calma, obediência e leveza na sua rotina.
-  </p>
+  <div class="container">
+    <h1>Com base nas suas respostas, este é o passo certo para transformar o comportamento do seu filho</h1>
+    <p class="subtitulo">Aplique o guia <strong style="color: #BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.</p>
 
-  <div class="grafico-container">
-    <canvas id="graficoComportamento"></canvas>
+    <div class="grafico-container">
+      <canvas id="graficoComportamento"></canvas>
+    </div>
   </div>
 
   <script>
     const ctx = document.getElementById('graficoComportamento').getContext('2d');
-    const chart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
@@ -84,9 +79,6 @@
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: {
-            display: false
-          },
           tooltip: {
             callbacks: {
               label: function(context) {
@@ -95,11 +87,14 @@
                   'ME OBEDECE',
                   'PAROU DE SER AGRESSIVO',
                   'SEM BIRRA',
-                  'FILHO GENTIL E EDUCADO'
+                  'FILHO GENTIL\nE EDUCADO'
                 ];
                 return labels[context.dataIndex];
               }
             }
+          },
+          legend: {
+            display: false
           },
           datalabels: {
             anchor: 'end',
@@ -114,8 +109,8 @@
               const labels = [
                 'VOCÊ AGORA',
                 'ME OBEDECE',
-                'PAROU DE SER AGRESSIVO',
-                'SEM BIRRA',
+                'PAROU DE\nSER AGRESSIVO',
+                'SEM\nBIRRA',
                 'FILHO GENTIL\nE EDUCADO'
               ];
               return labels[context.dataIndex];

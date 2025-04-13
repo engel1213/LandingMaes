@@ -78,10 +78,10 @@
         maintainAspectRatio: true,
         layout: {
           padding: {
+            left: 40,   // aumentamos o espaço do primeiro ponto
+            right: 40,  // aumentamos o espaço do último ponto
             top: 10,
-            bottom: 10,
-            left: 10,
-            right: 40  // aumenta espaço pro rótulo da direita
+            bottom: 10
           }
         },
         plugins: {
@@ -105,9 +105,9 @@
             anchor: 'end',
             align: 'top',
             offset: 8,
+            clip: false,
             font: { weight: 'bold', size: 10 },
             color: '#BB443D',
-            clip: false,
             formatter: function(value, context) {
               const labels = [
                 'VOCÊ AGORA',

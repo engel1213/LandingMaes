@@ -3,162 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gráfico de Comportamento</title>
+  <title>Evolução do Comportamento</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
     body {
-      margin: 0;
       font-family: 'Open Sans', sans-serif;
-      text-align: center;
       color: #222;
+      margin: 16px;
       background: #fff;
-      padding: 16px;
+      text-align: center;
     }
 
     h1 {
       font-size: 22px;
-      font-weight: 800;
-      margin: 0 0 12px 0;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
-    .subtitulo {
+    p.subtitulo {
       font-size: 16px;
       font-weight: 400;
-      margin: 0 0 24px 0;
-      padding: 0 12px;
+      margin: 0 8px 24px;
     }
 
     .grafico-container {
+      position: relative;
       width: 100%;
       max-width: 640px;
       margin: 0 auto;
     }
 
-    canvas {
+    #graficoComportamento {
       width: 100% !important;
       height: auto !important;
     }
 
-    .grafico-info {
-      margin-top: 20px;
-      background: #f9f9f9;
-      padding: 16px 20px;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    .descricao-mobile {
       display: none;
-      transition: opacity 0.3s ease;
-      font-size: 15px;
-      line-height: 1.5;
+      font-size: 16px;
+      margin-top: 24px;
+      background: #fafafa;
+      padding: 16px;
+      border-radius: 12px;
+      max-width: 640px;
+      margin-inline: auto;
+      box-shadow: 0 0 12px rgba(0,0,0,0.05);
+      text-align: left;
     }
 
-    .grafico-info span {
+    .descricao-mobile span {
       font-weight: 700;
     }
 
-    .grafico-instrucao {
-      font-size: 13px;
-      color: #777;
-      margin: 12px auto 4px;
-    }
-
-    @media (max-width: 767px) {
-      h1 {
-        font-size: 20px;
+    @media (max-width: 768px) {
+      .descricao-mobile {
+        display: block;
       }
     }
   </style>
 </head>
 <body>
+  <h1>Com base nas suas respostas, este é o passo certo para transformar o comportamento do seu filho</h1>
+  <p class="subtitulo">Aplique o guia <strong style="color: #BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.</p>
+
   <div class="grafico-container">
-    <h1>Com base nas suas respostas, este é o passo certo para transformar o comportamento do seu filho</h1>
-    <p class="subtitulo">
-      Aplique o guia <strong style="color:#BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.
-    </p>
-
     <canvas id="graficoComportamento"></canvas>
-
-    <div class="grafico-instrucao">🔎 Toque nos pontos para ver a evolução do comportamento</div>
-    <div class="grafico-info" id="graficoInfoMobile">
-      📍 <span>VOCÊ AGORA</span>: Caos, gritos e desobediência.
+    <div id="descricaoMobile" class="descricao-mobile">
+      📍 <span>VOCÊ AGORA:</span> Caos, gritos e desobediência.
     </div>
   </div>
 
   <script>
-    const ctx = document.getElementById('graficoComportamento').getContext('2d');
-    const infoBox = document.getElementById('graficoInfoMobile');
+    const ctx = document.getElementById("graficoComportamento").getContext("2d");
+    const descricaoMobile = document.getElementById("descricaoMobile");
 
-    const labels = ['0 DIAS', '7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'];
-    const pontoResumo = [
-      { titulo: 'VOCÊ AGORA', desc: 'Caos, gritos e desobediência.' },
-      { titulo: 'ME OBEDECE', desc: 'Começa a atender comandos simples.' },
-      { titulo: 'PAROU DE SER AGRESSIVO', desc: 'Interrupção de tapas, gritos e xingamentos.' },
-      { titulo: 'MAIS AFETO', desc: 'Demonstra carinho e empatia espontânea.' },
-      { titulo: 'SEM BIRRA', desc: 'Responde com calma a limites e frustrações.' },
-      { titulo: 'FILHO GENTIL E EDUCADO', desc: 'Cooperativo, gentil e tranquilo no dia a dia.' }
+    const rotulos = [
+      'VOCÊ AGORA',
+      'ME OBEDECE',
+      'PAROU DE SER AGRESSIVO',
+      'MAIS AFETO',
+      'SEM BIRRA',
+      'FILHO GENTIL E EDUCADO'
+    ];
+
+    const descricoes = [
+      'Caos, gritos e desobediência.',
+      'Obedece sem gritar.',
+      'Parou com atitudes agressivas.',
+      'Demonstra mais carinho.',
+      'Sem birra e mais calmo.',
+      'Filho gentil, educado e cooperativo.'
     ];
 
     const chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: labels,
+        labels: ['0 DIAS', '7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
         datasets: [{
           label: 'Evolução do comportamento',
-          data: [5, 20, 40, 60, 75, 90],
+          data: [5, 15, 35, 55, 75, 90],
           borderColor: '#BB443D',
-          backgroundColor: 'rgba(187, 68, 61, 0.08)',
+          backgroundColor: 'rgba(187, 68, 61, 0.1)',
           fill: true,
           tension: 0.4,
           pointRadius: 6,
           pointHoverRadius: 8,
           pointBackgroundColor: '#BB443D',
           pointBorderColor: '#fff',
-          pointStyle: 'circle'
         }]
       },
       options: {
         responsive: true,
-        layout: {
-          padding: { left: 16, right: 16 }
+        maintainAspectRatio: true,
+        onClick: (e, elements) => {
+          if (elements.length > 0) {
+            const index = elements[0].index;
+            descricaoMobile.innerHTML = `📍 <span>${rotulos[index]}:</span> ${descricoes[index]}`;
+          }
         },
         plugins: {
           legend: { display: false },
           tooltip: {
             callbacks: {
-              title: ctx => `${labels[ctx[0].dataIndex]}`,
-              label: ctx => `📍 ${pontoResumo[ctx.dataIndex].titulo}: ${pontoResumo[ctx.dataIndex].desc}`
+              title: (ctx) => `${ctx[0].label}`,
+              label: (ctx) => rotulos[ctx.dataIndex] + ": " + descricoes[ctx.dataIndex]
             }
           },
           datalabels: {
-            anchor: 'end',
             align: 'top',
-            offset: 8,
+            anchor: 'end',
             font: { weight: 'bold', size: 10 },
             color: '#BB443D',
-            formatter: (val, ctx) => pontoResumo[ctx.dataIndex].titulo
+            formatter: function(value, ctx) {
+              return rotulos[ctx.dataIndex];
+            }
           }
         },
-        scales: {
-          y: {
-            beginAtZero: true,
-            display: false,
-            grid: { display: false }
-          },
-          x: {
-            ticks: { font: { size: 12 } },
-            grid: { display: false }
-          }
-        },
-        onClick: (evt, elements) => {
-          if (elements.length > 0) {
-            const idx = elements[0].index;
-            infoBox.innerHTML = `📍 <span>${pontoResumo[idx].titulo}</span>: ${pontoResumo[idx].desc}`;
-            infoBox.style.display = 'block';
-          }
-        }
-      },
-      plugins: [ChartDataLabels]
-    });
-  </script>
-</body>
-</html>
+        layout: {
+          padding: {
+            left: 16,

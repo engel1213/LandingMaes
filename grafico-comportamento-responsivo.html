@@ -7,47 +7,67 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Open Sans', sans-serif;
-      margin: 16px;
+      margin: 0;
+      padding: 24px 16px;
+      background: #fff;
       color: #222;
       text-align: center;
     }
+
     h1 {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
       margin-bottom: 12px;
     }
+
     p.subtitulo {
       font-size: 16px;
-      font-weight: 400;
       margin-bottom: 24px;
-      padding: 0 12px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
     .grafico-container {
       width: 100%;
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
     }
+
     canvas {
       width: 100% !important;
       height: auto !important;
+    }
+
+    @media (max-width: 767px) {
+      h1 {
+        font-size: 20px;
+      }
+      p.subtitulo {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
 <body>
   <h1>Com base nas suas respostas, este é o passo certo para transformar o comportamento do seu filho</h1>
   <p class="subtitulo">
-    Aplique o guia <strong style="color: #BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.
+    Aplique o guia <strong style="color:#BB443D;">ainda hoje</strong> e veja os primeiros sinais de mudança em poucos dias — mais calma, obediência e leveza na sua rotina.
   </p>
-
   <div class="grafico-container">
     <canvas id="graficoComportamento"></canvas>
   </div>
 
   <script>
     const ctx = document.getElementById('graficoComportamento').getContext('2d');
-    const chart = new Chart(ctx, {
+
+    new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['7 DIAS', '14 DIAS', '21 DIAS', '24 DIAS', '28 DIAS'],
@@ -74,9 +94,9 @@
                 const labels = [
                   'VOCÊ AGORA',
                   'ME OBEDECE',
-                  'PAROU DE\nSER AGRESSIVO',
+                  'PAROU DE SER AGRESSIVO',
                   'SEM BIRRA',
-                  'FILHO GENTIL\nE EDUCADO'
+                  'FILHO GENTIL E EDUCADO'
                 ];
                 return labels[context.dataIndex];
               }
@@ -88,10 +108,10 @@
           datalabels: {
             anchor: 'end',
             align: 'top',
-            offset: 8,
+            offset: 10,
             font: {
               weight: 'bold',
-              size: 10
+              size: 11
             },
             color: '#BB443D',
             formatter: function (value, context) {
@@ -104,6 +124,12 @@
               ];
               return labels[context.dataIndex];
             }
+          }
+        },
+        layout: {
+          padding: {
+            top: 40,
+            bottom: 30
           }
         },
         scales: {
@@ -120,6 +146,5 @@
       plugins: [ChartDataLabels]
     });
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
 </body>
 </html>

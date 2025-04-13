@@ -11,7 +11,7 @@
       font-family: 'Open Sans', sans-serif;
       background: #fff;
       margin: 0;
-      padding: 20px 16px;
+      padding: 20px 0;
       text-align: center;
       color: #222;
     }
@@ -19,28 +19,23 @@
     h1 {
       font-size: 22px;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin: 0 16px 8px;
     }
 
     p.subtitulo {
       font-size: 16px;
       font-weight: 400;
-      margin-bottom: 24px;
-      padding: 0 12px;
+      margin: 0 16px 24px;
     }
 
     .grafico-container {
+      width: 100vw;
+      height: 340px;
       position: relative;
-      width: 100%;
-      max-width: 680px;
-      height: 320px; /* Altura definida */
-      margin: 0 auto;
+      overflow: hidden;
     }
 
     canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100% !important;
       height: 100% !important;
     }
@@ -82,9 +77,9 @@
         maintainAspectRatio: false,
         layout: {
           padding: {
-            top: 60,    // Espaço para datalabel do último ponto
-            left: 30,
-            right: 30,
+            top: 60,
+            left: 40,
+            right: 40,
             bottom: 0
           }
         },

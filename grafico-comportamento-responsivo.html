@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Open Sans', sans-serif;
       margin: 0;
       padding: 24px 16px;
       background: #fff;
@@ -34,16 +34,17 @@
     .grafico-container {
       max-width: 640px;
       margin: 0 auto 24px;
-      padding: 0 12px;
     }
 
     canvas {
       width: 100% !important;
-      height: auto !important;
+      aspect-ratio: 4 / 3;
+      max-height: 360px;
+      display: block;
     }
 
     .descricao-mobile {
-      font-size: 16px;
+      font-size: 15px;
       background: #f9f9f9;
       border-radius: 12px;
       padding: 16px 20px;
@@ -51,6 +52,7 @@
       margin: 20px auto 0;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       line-height: 1.6;
+      text-align: left;
     }
 
     .descricao-mobile strong {
@@ -67,7 +69,7 @@
       }
 
       .descricao-mobile {
-        font-size: 15px;
+        font-size: 14px;
       }
     }
   </style>
@@ -102,7 +104,7 @@
       data: {
         labels: ["0 DIAS", "7 DIAS", "14 DIAS", "21 DIAS", "24 DIAS", "28 DIAS"],
         datasets: [{
-          data: [5, 20, 40, 60, 75, 85],
+          data: [5, 20, 40, 60, 75, 90],
           backgroundColor: "rgba(187, 68, 61, 0.1)",
           borderColor: "#BB443D",
           fill: true,
@@ -118,22 +120,17 @@
         responsive: true,
         maintainAspectRatio: false,
         layout: {
-          padding: {
-            left: 20,
-            right: 20,
-            top: 40,
-            bottom: 40
-          }
+          padding: { left: 20, right: 20, top: 40, bottom: 40 }
         },
         plugins: {
           legend: { display: false },
           tooltip: {
-            enabled: false, // desabilita o box flutuante
+            enabled: false,
             external: function(context) {
-              const index = context.tooltip.dataPoints?.[0]?.dataIndex ?? 0;
+              const idx = context.tooltip.dataPoints?.[0]?.dataIndex ?? 0;
               const descBox = document.getElementById("descricaoMobile");
-              if (descBox && estados[index]) {
-                descBox.innerHTML = `📍 <strong>${estados[index].label}:</strong> ${estados[index].desc}`;
+              if (descBox && estados[idx]) {
+                descBox.innerHTML = `📍 <strong>${estados[idx].label}:</strong> ${estados[idx].desc}`;
               }
             }
           },
@@ -158,9 +155,7 @@
           x: {
             ticks: {
               color: "#444",
-              font: {
-                size: 12
-              }
+              font: { size: 12 }
             },
             grid: { display: false }
           }

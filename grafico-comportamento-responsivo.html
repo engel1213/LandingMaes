@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Gráfico de Evolução</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: 'Open Sans', sans-serif;
@@ -76,6 +76,14 @@
       options: {
         responsive: true,
         maintainAspectRatio: true,
+        layout: {
+          padding: {
+            top: 10,
+            bottom: 10,
+            left: 10,
+            right: 24 // ADICIONADO para evitar corte no final
+          }
+        },
         plugins: {
           tooltip: {
             callbacks: {
@@ -98,6 +106,7 @@
             offset: 8,
             font: { weight: 'bold', size: 10 },
             color: '#BB443D',
+            clip: false, // NÃO corta os rótulos
             formatter: function(value, context) {
               const labels = [
                 'VOCÊ AGORA',
